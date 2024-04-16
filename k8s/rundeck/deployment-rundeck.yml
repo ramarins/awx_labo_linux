@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rundeck-app
+  namespace: rundeck-poc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rundeck-app
+  template:
+    metadata:
+      labels:
+        app: rundeck-app
+    spec:
+      containers:
+      - name: rundeck-app
+        image: rundeck_poc:1.0
+        ports:
+        - containerPort: 4440
+        env:
+        - name: RUNDECK_GRAILS_URL
+          value: awx-server-labo.com:30040
+        - name: RD_GUI_LOGIN_WELCOME
+          value: Bienvenido a la PoC de Rundeck
