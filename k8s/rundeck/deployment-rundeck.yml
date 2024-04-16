@@ -13,6 +13,13 @@ spec:
       labels:
         app: rundeck-app
     spec:
+      initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "chown -R 1000:1000 /var/lib/rundeck/projects"]
+        volumeMounts:
+        - name: rundeck-storage
+          mountPath: /var/lib/rundeck/projects
       containers:
       - name: rundeck-app
         image: rundeck_poc:1.0
@@ -23,3 +30,10 @@ spec:
           value: awx-server-labo.com:30040
         - name: RD_GUI_LOGIN_WELCOME
           value: Bienvenido a la PoC de Rundeck
+        volumeMounts:
+          - mountPath: /var/lib/rundeck/projects
+            name: rundeck-storage
+      volumes:
+      - name: rundeck-storage
+        persistentVolumeClaim:
+          claimName: rundeck-pvc
