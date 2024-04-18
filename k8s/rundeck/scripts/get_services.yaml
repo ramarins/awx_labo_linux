@@ -1,0 +1,28 @@
+---
+- hosts: linux
+  gather_facts: false
+  tasks:
+    - name: Get all services
+      ansible.builtin.service_facts:
+
+    - name: Local actions
+      block:
+        - name: Create directory
+          ansible.builtin.file:
+            path: "{{ serviceListDir }}"
+            state: directory
+
+        - name: Write services to file
+          ansible.builtin.copy:
+            content: "{{ ansible_facts.services }}"
+            dest: "{{ serviceListDir }}/{{ inventory_hostname }}_raw.json"
+
+        - name: Write services to file
+          ansible.builtin.shell: |
+            python3 export_services.py {{ serviceListDir }}/{{ inventory_hostname }}_raw.json {{ serviceListDir }}/{{ inventory_hostname }}.json
+
+        - name: Delete raw file
+          ansible.builtin.file:
+            path: "{{ serviceListDir }}/{{ inventory_hostname }}_raw.json"
+            state: absent
+      delegate_to: localhost
