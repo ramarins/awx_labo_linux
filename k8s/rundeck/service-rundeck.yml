@@ -11,3 +11,17 @@ spec:
       nodePort: 30040
   selector:
     app: rundeck-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rundeck-service-2
+  namespace: rundeck-poc
+spec:
+  type: NodePort
+  ports:
+    - port: 4441
+      targetPort: 4440
+      nodePort: 30041
+  selector:
+    app: rundeck-app-2

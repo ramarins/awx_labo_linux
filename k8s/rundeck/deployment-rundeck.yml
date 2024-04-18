@@ -22,7 +22,7 @@ spec:
           mountPath: /var/lib/rundeck/data
       containers:
       - name: rundeck-app
-        image: rundeck_poc:1.0
+        image: rundeck_poc:2.0
         ports:
         - containerPort: 4440
         env:
