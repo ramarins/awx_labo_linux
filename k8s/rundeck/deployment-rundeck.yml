@@ -16,7 +16,7 @@ spec:
       initContainers:
       - name: volume-mount-hack
         image: busybox
-        command: ["sh", "-c", "chown -R 1000:1000 /var/lib/rundeck/data"]
+        command: ["sh", "-c", "chown 1000:1000 /var/lib/rundeck/data"]
         volumeMounts:
         - name: rundeck-storage
           mountPath: /var/lib/rundeck/data
@@ -27,12 +27,12 @@ spec:
         - containerPort: 4440
         env:
         - name: RUNDECK_GRAILS_URL
-          value: awx-server-labo.com:30040
+          value: rundeck-poc.t1.com
         - name: RD_GUI_LOGIN_WELCOME
           value: Bienvenido a la PoC de Rundeck
         volumeMounts:
-          - mountPath: /var/lib/rundeck/data
-            name: rundeck-storage
+          - name: rundeck-storage
+            mountPath: /var/lib/rundeck/data
       volumes:
       - name: rundeck-storage
         persistentVolumeClaim:
