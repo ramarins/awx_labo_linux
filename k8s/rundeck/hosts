@@ -1,0 +1,36 @@
+all:
+  children:
+    linux:
+      hosts:
+        linux01:
+          ansible_host: 192.168.17.101
+          ansible_user: ts_ansible
+        linux02:
+          ansible_host: 192.168.17.102
+          ansible_user: ts_ansible
+        linux03:
+          ansible_host: 192.168.17.103
+          ansible_user: ts_ansible
+        linux04:
+          ansible_host: 192.168.17.104
+          ansible_user: ts_ansible
+        linux05:
+          ansible_host: 192.168.17.105
+          ansible_user: ts_ansible
+    windows:
+      hosts:
+        windows01:
+          ansible_host: 192.168.17.201
+          ansible_connection: winrm
+          ansible_port: 5986
+          ansible_winrm_server_cert_validation: ignore
+        windows02:
+          ansible_host: 192.168.17.202
+          ansible_connection: winrm
+          ansible_port: 5986
+          ansible_winrm_server_cert_validation: ignore
+        windows03:
+          ansible_host: 192.168.17.203
+          ansible_connection: winrm
+          ansible_port: 5986
+          ansible_winrm_server_cert_validation: ignore
