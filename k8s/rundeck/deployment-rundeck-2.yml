@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rundeck-app-2
+  namespace: rundeck-poc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rundeck-app-2
+  template:
+    metadata:
+      labels:
+        app: rundeck-app-2
+    spec:
+      containers:
+      - name: rundeck-app-2
+        image: rundeck_poc:1.0
+        ports:
+        - containerPort: 4440
+        env:
+        - name: RUNDECK_GRAILS_URL
+          value: ctti-rundeck.com
+        - name: RD_GUI_INSTANCE_NAME
+          value: CTTI
+        - name: RD_GUI_LOGIN_WELCOME
+          value: Bienvenido a la PoC de Rundeck
